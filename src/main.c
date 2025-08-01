@@ -14,7 +14,10 @@ int main(int argc, char**argv)
         return (0);
     else if (argc == 2)
         argv = ft_split(argv[1], 32);
-
-
     start_stacks(argv, &stack_a);
+    while (stack_a)
+    {
+        printf("%d", stack_a->value);
+        stack_a = stack_a->next;
+    }
 }
