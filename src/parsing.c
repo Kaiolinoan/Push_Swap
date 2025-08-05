@@ -1,4 +1,14 @@
-//cabecalho
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: klino-an <klino-an@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/04 16:33:58 by klino-an          #+#    #+#             */
+/*   Updated: 2025/08/04 16:36:48 by klino-an         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../push_swap.h"
 
@@ -9,7 +19,8 @@ int check_input(char **argv)
     while (argv[i])
     {
         if (ft_isdigit(argv[i][0]) == 0)
-            if(argv[i][0] != '-' && ft_isdigit(argv[i][1]) == 0)
+            if((argv[i][0] != '-' || argv[i][0] != '+') 
+                && ft_isdigit(argv[i][1]) == 0)
                 return (-1);
         i++;
     }

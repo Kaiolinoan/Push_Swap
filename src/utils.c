@@ -1,5 +1,28 @@
-// CABECALHO
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: klino-an <klino-an@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/04 16:34:16 by klino-an          #+#    #+#             */
+/*   Updated: 2025/08/05 17:29:57 by klino-an         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+bool is_sorted(t_stacks **stack_a)
+{
+    if (!stack_a || !(*stack_a))
+        return false;
+    while ((*stack_a)->next)
+        if ((*stack_a)->next->value > (*stack_a)->value)
+            (*stack_a) = (*stack_a)->next;
+        else
+            return (false);
+    return (true);
+} 
+
 
 long ft_atol(char *str)
 {
