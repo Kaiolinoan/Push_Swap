@@ -6,26 +6,11 @@
 /*   By: klino-an <klino-an@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:33:58 by klino-an          #+#    #+#             */
-/*   Updated: 2025/08/04 16:36:48 by klino-an         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:41:53 by klino-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-int check_input(char **argv)
-{
-    size_t i;
-    i = 0;
-    while (argv[i])
-    {
-        if (ft_isdigit(argv[i][0]) == 0)
-            if((argv[i][0] != '-' || argv[i][0] != '+') 
-                && ft_isdigit(argv[i][1]) == 0)
-                return (-1);
-        i++;
-    }
-    return (0);
-}
 
 int  check_doubles(char **argv, int nbr)
 {
@@ -45,11 +30,82 @@ int  check_doubles(char **argv, int nbr)
     }
     return (0);
 }
-void print_error(char *str)
+void print_error()
 {
     ft_putstr_fd("Error\n", 2);
-    ft_putstr_fd(str, 2);
     exit(-1);
+}
+
+static bool check_charcaters(char **argv)
+{
+    size_t i;
+    size_t j;
+
+    i = 0;
+    j = 0;
+    while (argv[i])
+    {
+        j = 0;
+        while (argv[i][j])
+        {
+            if ((argv[i][j] >= '0' && argv[i][j] <= '9') || argv[i][j] == '+' || argv[i][j] == '-')
+                j++;
+            else 
+                return (false);
+        }
+        i++;
+    }
+    return (true);
+}
+
+int check_input(char **argv)
+{
+    size_t i;
+    size_t j;
+    
+    i = 0;
+    if (check_charcaters(argv) == false)
+        return (-1);
+    while (argv[i])
+    {
+        j = 0;
+        while (argv[i][j])
+        {
+            if (argv[i][j] == '+' || argv[i][j] == '-')
+            {
+                if ((argv[i][0] == '+' || argv[i][0] == '-') && ft_isdigit(argv[i][1])== 2048)
+                    j++;
+                else        
+                    return (-1);
+            }
+            else 
+                j++;
+        }
+        i++;
+    }
+    /*       if (ft_isdigit(argv[i][0]) == 0)
+              if((argv[i][0] != '-' || argv[i][0] != '+') 
+                  && ft_isdigit(argv[i][1]) == 0)
+                  return (-1);
+          i++; */
+    return (0);
+}
+
+int number_len(char *str)
+{
+    size_t i;
+    size_t counter;
+
+    i = 0;
+    counter = 0;
+    while (str[i] && !(str[i] >= '1' && str[i] <= '9'))
+        i++;
+    while (str[i] && ft_isdigit(str[i]) == 2048)
+    {
+        counter++;
+        i++;
+    }
+    return (counter);
 }
 
 

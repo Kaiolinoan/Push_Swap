@@ -6,7 +6,7 @@
 /*   By: klino-an <klino-an@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:34:10 by klino-an          #+#    #+#             */
-/*   Updated: 2025/08/05 16:34:28 by klino-an         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:35:01 by klino-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_stacks *create_node(int value)
 
     node = malloc(sizeof(t_stacks));
     node->value = value;
+    node->index = 0;
     node->next = NULL;
     node->previous = NULL;
     return (node);
@@ -75,24 +76,41 @@ static void create_stack(t_stacks **stack_a, int nbr)
 void start_stacks(char **argv, t_stacks **stack_a)
 {
     long nbr;
+    int nb_len;
     size_t i;
-    i = 0;
     
+    i = 0;
     while (argv[i])
     {
         nbr = ft_atol(argv[i]);
-        if (nbr < INT_MIN || nbr > INT_MAX)
-            print_error("Numbers are not in the int range\n");
+        nb_len =number_len(argv[i]);
+        if ((nbr < INT_MIN || nbr > INT_MAX) || nb_len > 10)
+            print_error();
         if (check_doubles(argv, nbr) == -1)
-            print_error("There are duplicate numbers\n");
-        if (check_input(argv))
-            print_error("The input is not valid\n");
+            print_error();
+        if (check_input(argv) == -1)
+            print_error();
         create_stack(stack_a, (int)nbr);
         i++;
-        // while ((*stack_a))
-        // {
-        //     printf("%d\n", (*stack_a)->value);
-        //     (*stack_a) = (*stack_a)->next;
-        // }
     }
+}
+
+void normalize(t_stacks **stack_a)
+{
+  t_stacks *current;
+  t_stacks *compare;
+
+  current = (*stack_a);
+  current = (*stack_a);
+  while (current)
+  {
+    compare = (*stack_a);
+    while(compare)
+    {
+        if (current->value > compare->value)
+            current->index += 1;
+        compare = compare->next;
+    }
+    current = current->next;
+  }
 }

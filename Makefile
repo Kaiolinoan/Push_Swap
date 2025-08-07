@@ -1,8 +1,8 @@
 NAME = push_swap
 CC = cc
-CFLAGS = -Werror -Wall -Wextra  -g -I. -I.. 
+CFLAGS = -Werror -Wall -Wextra -g3 -I. -I.. 
 SRC_FOLDER = src
-SRCS = $(addprefix $(SRC_FOLDER)/, main.c utils.c parsing.c nodes.c operations.c)
+SRCS = $(addprefix $(SRC_FOLDER)/, main.c utils.c parsing.c nodes.c operations.c small_sort.c)
 OBJS = $(SRCS:.c=.o)	
 
 all: $(NAME)

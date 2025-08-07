@@ -10,6 +10,7 @@
 typedef struct s_stacks
 {
     int value;
+    int index;
     struct s_stacks *next;
     struct s_stacks *previous;
 }   t_stacks;
@@ -19,13 +20,17 @@ void start_stacks(char **argv, t_stacks **stack_a);
 t_stacks *find_last_node(t_stacks *stack);
 t_stacks *create_node(int value);
 int stack_len(t_stacks *stack);
+void normalize(t_stacks **stack_a);
+
 
 
 
 //parsing
 int  check_doubles(char **argv, int nbr);
 int check_input(char **argv);
-void print_error(char *str);
+void print_error();
+int number_len(char *str);
+
 
 //utils
 long ft_atol(char *str);

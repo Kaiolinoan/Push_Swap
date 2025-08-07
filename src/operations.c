@@ -6,7 +6,7 @@
 /*   By: klino-an <klino-an@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:34:06 by klino-an          #+#    #+#             */
-/*   Updated: 2025/08/05 16:57:40 by klino-an         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:08:10 by klino-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void    pb(t_stacks **stack_a, t_stacks **stack_b)
         (*stack_b) = node;
     }
     (*stack_a) = (*stack_a)->next;
+    write(1,"pb\n", 3);
 }
 
 void    pa(t_stacks **stack_a, t_stacks **stack_b)
@@ -48,7 +49,7 @@ void    pa(t_stacks **stack_a, t_stacks **stack_b)
         (*stack_a) = node;
     }
     (*stack_b) = (*stack_b)->next;
-    
+    write(1,"pa\n", 3);
 }
 
 void sa(t_stacks **stack_a)
@@ -63,6 +64,7 @@ void sa(t_stacks **stack_a)
     temp = (*stack_a)->value;
     (*stack_a)->value = (*stack_a)->next->value;
     (*stack_a)->next->value = temp;
+    write(1,"sa\n", 3);
 }
 
 void sb(t_stacks **stack_b)
@@ -77,12 +79,14 @@ void sb(t_stacks **stack_b)
     temp = (*stack_b)->value;
     (*stack_b)->value = (*stack_b)->next->value;
     (*stack_b)->next->value = temp;
+    write(1,"sb\n", 3);
 }
 
 void ss(t_stacks **stack_a, t_stacks **stack_b)
 {
     sa(stack_a);
     sb(stack_b);
+    write(1,"ss\n", 3);
 }
 
 void ra(t_stacks **stack_a)
@@ -100,6 +104,7 @@ void ra(t_stacks **stack_a)
     last = find_last_node(*stack_a);
     last->next = node;
     node->previous = last;
+    write(1,"ra\n", 3);
 }
 
 void rb(t_stacks **stack_b)
@@ -117,12 +122,15 @@ void rb(t_stacks **stack_b)
     last = find_last_node(*stack_b);
     last->next = node;
     node->previous = last;
+    write(1,"rb\n", 3);
+
 }
 
 void rr(t_stacks **stack_a, t_stacks **stack_b)
 {
     ra(stack_a);
     rb(stack_b);
+    write(1,"rr\n", 3);
 }
 
 void rra(t_stacks **stack_a)
@@ -141,6 +149,7 @@ void rra(t_stacks **stack_a)
     node->next = (*stack_a);
     (*stack_a)->previous = node;
     (*stack_a) = node;
+    write(1,"rra\n", 4);
 }
 
 void rrb(t_stacks **stack_b)
@@ -159,12 +168,14 @@ void rrb(t_stacks **stack_b)
     node->next = (*stack_b);
     (*stack_b)->previous = node;
     (*stack_b) = node;
+    write(1,"rrb\n", 4);
 }
 
 void rrr(t_stacks **stack_a, t_stacks **stack_b)
 {
     rra(stack_a);
     rrb(stack_b);
+    write(1,"rrr\n", 4);
 }
 
 
