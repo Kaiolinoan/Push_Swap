@@ -27,7 +27,7 @@ int stack_len(t_stacks *stack)
     return (i);
 }
 
-t_stacks *create_node(int value)
+/* t_stacks *create_node(int value)
 {
     t_stacks *node;
 
@@ -37,7 +37,7 @@ t_stacks *create_node(int value)
     node->next = NULL;
     node->previous = NULL;
     return (node);
-}
+} */
 
 t_stacks *find_last_node(t_stacks *stack)
 {
@@ -101,6 +101,12 @@ void normalize(t_stacks **stack_a)
   t_stacks *compare;
 
   current = (*stack_a);
+  compare = (*stack_a);
+  while (current)
+  {
+    current->index = 0;
+    current = current->next;
+  }
   current = (*stack_a);
   while (current)
   {

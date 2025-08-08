@@ -49,5 +49,11 @@ void    sb(t_stacks **stack_b);
 void    ra(t_stacks **stack_a);
 void    rb(t_stacks **stack_b);
 
+//samll_ sort
+void sort_three(t_stacks **stack_a);
+// void small_sort(t_stacks **stack_a, t_stacks **stack_b, int len);
+
+
+
 
 #endif

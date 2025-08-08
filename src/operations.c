@@ -12,58 +12,76 @@
 
 #include "push_swap.h"
 
-//colocar o write em cada funcao dps
-
 void    pb(t_stacks **stack_a, t_stacks **stack_b)
 {
-    t_stacks *node;
-    
+    t_stacks *temp;
+
     if (!(*stack_a))
         return ;
-    node = create_node((*stack_a)->value);
-    node->next = (*stack_b);
+
+    temp = (*stack_a);
+    temp->previous = NULL;
+    (*stack_a) = (*stack_a)->next;
+    if (*stack_a)
+        (*stack_a)->previous = NULL;
+
     if (!(*stack_b))
-        (*stack_b) = node;
+    {
+        (*stack_b) = temp;
+        (*stack_b)->next = NULL;
+    }
     else 
     {
-        (*stack_b)->previous = node;
-        (*stack_b) = node;
+        temp->next = (*stack_b);
+        (*stack_b)->previous = temp;
+        (*stack_b) = temp;
     }
-    (*stack_a) = (*stack_a)->next;
-    write(1,"pb\n", 3);
+    write(1, "pb\n", 3);
 }
 
 void    pa(t_stacks **stack_a, t_stacks **stack_b)
 {
-    t_stacks *node;
+    t_stacks *temp;
 
     if (!(*stack_b))
         return ;
-    node = create_node((*stack_b)->value);
-    node->next = (*stack_a);
+
+    temp = (*stack_b);
+    temp->previous = NULL;
+    (*stack_b) = (*stack_b)->next;
+    if (*stack_b)
+        (*stack_b)->previous = NULL;
+
     if (!(*stack_a))
-        (*stack_a) = node;
+    {
+        (*stack_a) = temp;
+        (*stack_a)->next = NULL;
+    }
     else 
     {
-        (*stack_a)->previous = node;
-        (*stack_a) = node;
+        temp->next = (*stack_a);
+        (*stack_a)->previous = temp;
+        (*stack_a) = temp;
     }
-    (*stack_b) = (*stack_b)->next;
-    write(1,"pa\n", 3);
+    write(1, "pa\n", 3);
 }
 
 void sa(t_stacks **stack_a)
 {
     int len;
     int temp;
+    int temp_index;
 
     len = stack_len(*stack_a);
     if (len <= 1)
         return ;
     
     temp = (*stack_a)->value;
+    temp_index = (*stack_a)->index;
     (*stack_a)->value = (*stack_a)->next->value;
+    (*stack_a)->index = (*stack_a)->next->index;
     (*stack_a)->next->value = temp;
+    (*stack_a)->next->index = temp_index;
     write(1,"sa\n", 3);
 }
 
@@ -71,14 +89,18 @@ void sb(t_stacks **stack_b)
 {
     int len;
     int temp;
+    int temp_index;
 
     len = stack_len(*stack_b);
     if (len <= 1)
         return ;
     
     temp = (*stack_b)->value;
+    temp_index = (*stack_b)->index;
     (*stack_b)->value = (*stack_b)->next->value;
+    (*stack_b)->index = (*stack_b)->next->index;
     (*stack_b)->next->value = temp;
+    (*stack_b)->next->index = temp_index;
     write(1,"sb\n", 3);
 }
 
@@ -91,39 +113,36 @@ void ss(t_stacks **stack_a, t_stacks **stack_b)
 
 void ra(t_stacks **stack_a)
 {
-    int temp;
-    t_stacks *node;
-    t_stacks *last;
+   t_stacks *temp;
+   t_stacks *last;
 
     if (!stack_a || !(*stack_a))
         return ;
-    temp = (*stack_a)->value;
+    temp = (*stack_a);
     (*stack_a) = (*stack_a)->next;
     (*stack_a)->previous = NULL;
-    node = create_node(temp);
     last = find_last_node(*stack_a);
-    last->next = node;
-    node->previous = last;
+    last->next = temp;
+    temp->previous = last;
+    temp->next = NULL;
     write(1,"ra\n", 3);
 }
 
 void rb(t_stacks **stack_b)
 {
-    int temp;
-    t_stacks *node;
+    t_stacks *temp;
     t_stacks *last;
 
     if (!stack_b || !(*stack_b))
         return ;
-    temp = (*stack_b)->value;
+    temp = (*stack_b);
     (*stack_b) = (*stack_b)->next;
     (*stack_b)->previous = NULL;
-    node = create_node(temp);
     last = find_last_node(*stack_b);
-    last->next = node;
-    node->previous = last;
+    last->next = temp;
+    temp->previous = last;
+    temp->next = NULL;
     write(1,"rb\n", 3);
-
 }
 
 void rr(t_stacks **stack_a, t_stacks **stack_b)
@@ -135,39 +154,29 @@ void rr(t_stacks **stack_a, t_stacks **stack_b)
 
 void rra(t_stacks **stack_a)
 {
-    int temp;
     t_stacks *last;
-    t_stacks *node;
 
     if (!stack_a || !(*stack_a))
         return ;
     last = find_last_node(*stack_a);
-    temp = last->value;
     last->previous->next = NULL;
-    // free(last); NAO SEI AINDA SOBRE ISSO;
-    node = create_node(temp);
-    node->next = (*stack_a);
-    (*stack_a)->previous = node;
-    (*stack_a) = node;
+    last->next = (*stack_a);
+    (*stack_a)->previous = last;
+    (*stack_a) = last;
     write(1,"rra\n", 4);
 }
 
 void rrb(t_stacks **stack_b)
 {
-    int temp;
     t_stacks *last;
-    t_stacks *node;
 
     if (!stack_b || !(*stack_b))
         return ;
     last = find_last_node(*stack_b);
-    temp = last->value;
     last->previous->next = NULL;
-    // free(last); NAO SEI AINDA SOBRE ISSO;
-    node = create_node(temp);
-    node->next = (*stack_b);
-    (*stack_b)->previous = node;
-    (*stack_b) = node;
+    last->next = (*stack_b);
+    (*stack_b)->previous = last;
+    (*stack_b) = last;
     write(1,"rrb\n", 4);
 }
 

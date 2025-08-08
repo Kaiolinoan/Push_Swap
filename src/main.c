@@ -60,25 +60,34 @@ int main(int argc, char**argv)
         matrix = &argv[1];
     start_stacks(matrix, &stack_a);
 
-    if (!is_sorted(&stack_a))
+    /* if (!is_sorted(&stack_a))
     {
         if (stack_len(stack_a) <= 5)
             small_sort();
         else 
             big_sort();
-    }
-
+    } */
+   normalize(&stack_a);
+   
+//    pb(&stack_a, &stack_b);
+//    pb(&stack_a, &stack_b);
+//    pb(&stack_a, &stack_b);
+   
     printf(" -----ANTES----:\n");
     print_stacks(stack_a, stack_b);
 
-    normalize(&stack_a);
+    
+    printf("------INDEX-----: \n");
+    print_index(stack_a, stack_b);
+    
+    sort_three(&stack_a);
+    // rrb(&stack_b);
+  
+        
+    printf(" -----DEPOIS----:\n");
+    print_stacks(stack_a, stack_b);
 
     printf("------INDEX-----: \n");
     print_index(stack_a, stack_b);
-
-    // pb(&stack_a, &stack_b);
-        
-    // printf(" -----DEPOIS----:\n");
-    // print_stacks(stack_a, stack_b);
 
 }
