@@ -80,7 +80,7 @@ int main(int argc, char**argv)
     printf("------INDEX-----: \n");
     print_index(stack_a, stack_b);
     
-    sort_three(&stack_a);
+    small_sort(&stack_a, &stack_b, stack_len(stack_a));
     // rrb(&stack_b);
   
         
