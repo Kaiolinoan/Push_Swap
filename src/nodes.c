@@ -27,18 +27,6 @@ int stack_len(t_stacks *stack)
     return (i);
 }
 
-/* t_stacks *create_node(int value)
-{
-    t_stacks *node;
-
-    node = malloc(sizeof(t_stacks));
-    node->value = value;
-    node->index = 0;
-    node->next = NULL;
-    node->previous = NULL;
-    return (node);
-} */
-
 t_stacks *find_last_node(t_stacks *stack)
 {
     if (!stack)
@@ -85,11 +73,11 @@ void start_stacks(char **argv, t_stacks **stack_a)
         nbr = ft_atol(argv[i]);
         nb_len =number_len(argv[i]);
         if ((nbr < INT_MIN || nbr > INT_MAX) || nb_len > 10)
-            print_error();
+            print_error(stack_a, argv);
         if (check_doubles(argv, nbr) == -1)
-            print_error();
+            print_error(stack_a, argv);
         if (check_input(argv) == -1)
-            print_error();
+            print_error(stack_a, argv);
         create_stack(stack_a, (int)nbr);
         i++;
     }

@@ -48,3 +48,25 @@ long ft_atol(char *str)
     }
     return (sign * nb);
 }
+void	mem_clear(t_stacks **stack_a, char **matriz)
+{
+	t_stacks	*temp;
+	t_stacks	*next;
+    int i;
+
+	if (!stack_a || !*stack_a)
+		return ;
+	temp = *stack_a;
+	while (temp)
+	{
+		next = temp->next;
+        free(temp);
+		temp = next;
+	}
+	*stack_a = NULL;
+
+    i = 0;
+    while (matriz[i])
+        free(matriz[i++]);
+    free(matriz);
+}

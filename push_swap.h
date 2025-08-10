@@ -18,23 +18,22 @@ typedef struct s_stacks
 //nodes
 void start_stacks(char **argv, t_stacks **stack_a);
 t_stacks *find_last_node(t_stacks *stack);
-t_stacks *create_node(int value);
 int stack_len(t_stacks *stack);
 void normalize(t_stacks **stack_a);
-
-
 
 
 //parsing
 int  check_doubles(char **argv, int nbr);
 int check_input(char **argv);
-void print_error();
+void print_error(t_stacks **stack_a, char **matriz);
 int number_len(char *str);
 
 
 //utils
 long ft_atol(char *str);
 bool is_sorted(t_stacks **stack_a);
+void mem_clear(t_stacks **stack_a, char **matriz);
+
 
 
 //operations
@@ -53,6 +52,9 @@ void    rb(t_stacks **stack_b);
 void small_sort(t_stacks **stack_a, t_stacks **stack_b, int len);
 
 // void small_sort(t_stacks **stack_a, t_stacks **stack_b, int len);
+
+//big_sort
+void radix_sort(t_stacks **stack_a, t_stacks **stack_b, int len);
 
 
 

@@ -30,9 +30,10 @@ int  check_doubles(char **argv, int nbr)
     }
     return (0);
 }
-void print_error()
+void print_error(t_stacks **stack_a, char **matriz)
 {
     ft_putstr_fd("Error\n", 2);
+    mem_clear(stack_a, matriz);
     exit(-1);
 }
 
@@ -73,7 +74,7 @@ int check_input(char **argv)
         {
             if (argv[i][j] == '+' || argv[i][j] == '-')
             {
-                if ((argv[i][0] == '+' || argv[i][0] == '-') && ft_isdigit(argv[i][1])== 2048)
+                if ((argv[i][0] == '+' || argv[i][0] == '-') && ft_isdigit(argv[i][1]))
                     j++;
                 else        
                     return (-1);
@@ -83,11 +84,6 @@ int check_input(char **argv)
         }
         i++;
     }
-    /*       if (ft_isdigit(argv[i][0]) == 0)
-              if((argv[i][0] != '-' || argv[i][0] != '+') 
-                  && ft_isdigit(argv[i][1]) == 0)
-                  return (-1);
-          i++; */
     return (0);
 }
 

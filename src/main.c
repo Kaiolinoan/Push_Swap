@@ -48,46 +48,39 @@ int main(int argc, char**argv)
 {
     t_stacks *stack_a;
     t_stacks *stack_b;
-    char **matrix;
+    char **matriz;
 
     stack_a = NULL;
     stack_b = NULL;
     if (argc == 1 || (argc == 2 && argv[1][0] == '\0'))
         return (0);
     if (argc == 2)
-        matrix = ft_split(argv[1], 32);
+        matriz = ft_split(argv[1], 32);
     else 
-        matrix = &argv[1];
-    start_stacks(matrix, &stack_a);
+        matriz = &argv[1];
+    start_stacks(matriz, &stack_a);
+    normalize(&stack_a);
+    // printf(" -----ANTES----:\n");
+    // print_stacks(stack_a, stack_b);
 
-    /* if (!is_sorted(&stack_a))
+    
+    // printf("------INDEX-----: \n");
+    // print_index(stack_a, stack_b);
+
+    if (!is_sorted(&stack_a))
     {
         if (stack_len(stack_a) <= 5)
-            small_sort();
+            small_sort(&stack_a, &stack_b, stack_len(stack_a));
         else 
-            big_sort();
-    } */
-   normalize(&stack_a);
-   
-//    pb(&stack_a, &stack_b);
-//    pb(&stack_a, &stack_b);
-//    pb(&stack_a, &stack_b);
-   
-    printf(" -----ANTES----:\n");
-    print_stacks(stack_a, stack_b);
+            radix_sort(&stack_a, &stack_b, stack_len(stack_a));
+    }
+    // printf(" -----DEPOIS----:\n");
+    // print_stacks(stack_a, stack_b);
 
-    
-    printf("------INDEX-----: \n");
-    print_index(stack_a, stack_b);
-    
-    small_sort(&stack_a, &stack_b, stack_len(stack_a));
-    // rrb(&stack_b);
-  
-        
-    printf(" -----DEPOIS----:\n");
-    print_stacks(stack_a, stack_b);
+    // printf("------INDEX-----: \n");
+    // print_index(stack_a, stack_b);
+    mem_clear(&stack_a, matriz);
 
-    printf("------INDEX-----: \n");
-    print_index(stack_a, stack_b);
+    //ARRUMAR LEAKS, NORMINETTE, PARSING, TESTAR
 
 }
