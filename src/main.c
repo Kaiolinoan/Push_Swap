@@ -6,81 +6,65 @@
 /*   By: klino-an <klino-an@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:34:13 by klino-an          #+#    #+#             */
-/*   Updated: 2025/08/07 18:00:33 by klino-an         ###   ########.fr       */
+/*   Updated: 2025/08/13 17:17:09 by klino-an         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void print_index(t_stacks *stack_a, t_stacks *stack_b)
+char	**parse_args(int argc, char **argv)
 {
-    printf("stack A:\n");
-    while (stack_a)
-    {
-        printf("%d\n", stack_a->index);
-        stack_a = stack_a->next;
-    }  
-    printf("stack B:\n");
-    while (stack_b)
-    {
-        printf("%d\n", stack_b->index);
-        stack_b = stack_b->next;
-    }
+	int		i;
+	size_t	j;
+	size_t	index;
+	char	**res;
+	char	**split;
+
+	res = malloc(sizeof(char *) * 10000);
+	if (!res)
+		return (NULL);
+	i = 0;
+	index = 0;
+	while (++i < argc)
+	{
+		if (argv[i][0] == '\0')
+			return (NULL);
+		split = ft_split(argv[i], ' ');
+		if (!split || split[0] == NULL)
+			return (NULL);
+		j = 0;
+		while (split[j])
+			res[index++] = ft_strdup(split[j++]);
+		free_split(split);
+	}
+	res[index] = NULL;
+	return (res);
 }
 
-void print_stacks(t_stacks *stack_a, t_stacks *stack_b)
+int	main(int argc, char **argv)
 {
-    printf("stack A:\n");
-    while (stack_a)
-    {
-        printf("%d\n", stack_a->value);
-        stack_a = stack_a->next;
-    }  
-    printf("stack B:\n");
-    while (stack_b)
-    {
-        printf("%d\n", stack_b->value);
-        stack_b = stack_b->next;
-    }
-}
+	t_stacks	*stack_a;
+	t_stacks	*stack_b;
+	char		**matriz;
+	int			len;
 
-int main(int argc, char**argv)
-{
-    t_stacks *stack_a;
-    t_stacks *stack_b;
-    char **matriz;
-
-    stack_a = NULL;
-    stack_b = NULL;
-    if (argc == 1 || (argc == 2 && argv[1][0] == '\0'))
-        return (0);
-    if (argc == 2)
-        matriz = ft_split(argv[1], 32);
-    else 
-        matriz = &argv[1];
-    start_stacks(matriz, &stack_a);
-    normalize(&stack_a);
-    // printf(" -----ANTES----:\n");
-    // print_stacks(stack_a, stack_b);
-
-    
-    // printf("------INDEX-----: \n");
-    // print_index(stack_a, stack_b);
-
-    if (!is_sorted(&stack_a))
-    {
-        if (stack_len(stack_a) <= 5)
-            small_sort(&stack_a, &stack_b, stack_len(stack_a));
-        else 
-            radix_sort(&stack_a, &stack_b, stack_len(stack_a));
-    }
-    // printf(" -----DEPOIS----:\n");
-    // print_stacks(stack_a, stack_b);
-
-    // printf("------INDEX-----: \n");
-    // print_index(stack_a, stack_b);
-    mem_clear(&stack_a, matriz);
-
-    //ARRUMAR LEAKS, NORMINETTE, PARSING, TESTAR
-
+	stack_a = NULL;
+	stack_b = NULL;
+	if (argc == 1)
+		return (0);
+	matriz = parse_args(argc, argv);
+	if (!matriz)
+		print_error(&stack_a, matriz);
+	start_stacks(matriz, &stack_a);
+	normalize(&stack_a);
+	if (!is_sorted(stack_a))
+	{
+		len = stack_len(stack_a);
+		if (len <= 5)
+			small_sort(&stack_a, &stack_b, len);
+		else
+			radix_sort(&stack_a, &stack_b, len);
+	}
+	mem_clear(&stack_a, matriz);
+	return (0);
 }
